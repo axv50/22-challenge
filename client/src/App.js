@@ -9,7 +9,10 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
-import { StoreProvider } from "./utils/GlobalState";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "./state/index";
+import { state, dispatch } from './state/store';
 import Success from "./pages/Success";
 import OrderHistory from "./pages/OrderHistory";
 
@@ -26,6 +29,21 @@ const client = new ApolloClient({
 })
 
 function App() {
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
+  
+    const {
+      UPDATE_PRODUCTS,
+      ADD_TO_CART,
+      UPDATE_CART_QUANTITY,
+      REMOVE_FROM_CART,
+      ADD_MULTIPLE_TO_CART,
+      UPDATE_CATEGORIES,
+      UPDATE_CURRENT_CATEGORY,
+      CLEAR_CART,
+      TOGGLE_CART,
+    } = bindActionCreators(actionCreators);
+  
   return (
     <ApolloProvider client={client}>
       <Router>
